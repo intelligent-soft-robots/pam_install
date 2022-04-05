@@ -65,7 +65,7 @@ bashrc=${HOME}/.bashrc
 prefix_dir=${HOME}/.mpi-is/pam
 install_dir=${prefix_dir}/install
 lib_dir=${install_dir}/lib
-bin_dir=${install_dir/bin}
+bin_dir=${install_dir}/bin
 
 mkdir -p ${install_dir}
 mkdir -p ${lib_dir}
