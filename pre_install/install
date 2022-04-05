@@ -21,7 +21,7 @@ apt install -y ${apt_packages} 2> /dev/null
 # if did not work out, trying with sudo
 success=$?
 if [ ! "${success}" -eq "0" ]; then
-    sudo apt install -y ${apt_package}
+    sudo apt install -y ${apt_packages}
     success=$?
     if [ ! "${success}" -eq "0" ]; then
 	>&2 echo "failed to install apt dependencies with exit code ${success}"
