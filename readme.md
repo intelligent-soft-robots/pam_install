@@ -1,0 +1,2 @@
+Colcon package that, when added to a colcon workspace containing the PAM_MUJOCO treep project, will install the
+related includes, libraries and binaries to ~/.mpi-is/pam/install (if the cmake configuration variable PAM_INSTALL is ON) 
