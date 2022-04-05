@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# prints the path to the dist/site folder of
+# the current python3
+
+PYTHONDIR=$(python3 -c 'import site; print(site.getsitepackages()[0])')
+echo -n "$PYTHONDIR"
+

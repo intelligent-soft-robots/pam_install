@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# print the path to where the files
+# should be installed, i.e ~/.mpi-is/pam/install
+
+install_dir="${HOME}/.mpi-is/pam/install"
+mkdir -p ${install_dir}
+echo -n "${install_dir}"
+

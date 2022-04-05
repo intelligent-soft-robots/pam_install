@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model
+   href="http://download.ros.org/schema/package_format3.xsd"
+   schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+  <name>pam_install</name>
+  <version>1.0.0</version>
+  <description>install pam libraries, python packages and executables</description>
+  <author email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</author>
+  <maintainer email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</maintainer>
+  <license>BSD 3-Clause</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>cmake_always_do</buildtool_depend>
+  <buildtool_depend>pam_mujoco</buildtool_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>
