@@ -42,7 +42,7 @@ if(PAM_INSTALL)
     set(config_file_path "${CMAKE_CURRENT_SOURCE_DIR}/local_install/install_excluded.json")
     # configuring the pam_install executable file
     set(pam_install_template ${CMAKE_CURRENT_SOURCE_DIR}/local_install/pam_install.in)
-    set(pam_install ${CMAKE_CURRENT_SOURCE_DIR}/tmp/pam_install)
+    set(pam_install ${CMAKE_CURRENT_BINARY_DIR}/pam_install)
     configure_file(${pam_install_template}
       ${pam_install}
       @ONLY)
@@ -52,7 +52,7 @@ if(PAM_INSTALL)
   # macro for calling the pam_install executable
   macro(RUN_PAM_INSTALLATION)
     execute_process(COMMAND "bash"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tmp
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     INPUT_FILE pam_install
     TIMEOUT 5)
     ALWAYS_DO("installing files from ${colcon_install}")
