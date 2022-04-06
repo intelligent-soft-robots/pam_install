@@ -1,7 +1,7 @@
 {
-    "include":["gtest","gmock","package_template","pybind11"],
-    "lib":["libgmock","libgtest","package_template"],
+    "include":["gtest","gmock","pybind11"],
+    "lib":["libgmock.*","libgtest.*","GTestConfig.*","gmock*","gtest*"],
     "bin":[],
-    "python":["ament_","package_template","__pycache__",".gitignore","mpi_cmake_modules"]
+    "python":["ament_*","__pycache__",".gitignore","mpi_cmake_modules"]
 }
 
