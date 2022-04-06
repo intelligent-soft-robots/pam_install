@@ -1,0 +1,7 @@
+{
+    "include":["gtest","gmock","pybind11"],
+    "lib":["libgmock.*","libgtest.*","GTestConfig.*","gmock*","gtest*"],
+    "bin":[],
+    "python":["ament_*","__pycache__",".gitignore","mpi_cmake_modules"]
+}
+

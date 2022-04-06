@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# install file from the colcon install folder to
+# the local install folder (~/.mpi-is/pam/install).
+# The template file is pam_install.in, the
+# generated file is pam_install (in the tmp folder
+# and git ignored)
+
+# The variables below will be set by cmake when
+# generating pam_install
+
+# source path, i.e. from where the files
+# should be copied
+colcon_install=@colcon_install@
+
+# installation path, i.e. to where the files
+# will be copied
+install_prefix=@install_prefix@
+bin_path=${install_prefix}/bin
+include_path=${install_prefix}/include
+lib_path=${install_prefix}/lib
+pythonsitepackagesdir=@python_install_directory@
+
+# making sure all folders exist
+mkdir -p ${bin_path}
+mkdir -p ${include_path}
+mkdir -p ${lib_path}
+
+# path to the list_file executable
+# and related json configuration
+# (install_excluded.json)
+list_file_path=@list_file_path@
+config_file_path=@config_file_path@
+
+# creating an uninstall file on the fly
+project_name="mpi-is-pam"
+uninstall=uninstall-${project_name}
+touch ${uninstall}
+chmod +x ${uninstall}
+
+include_folders=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-include-folders)
+echo "${include_folders}" | \
+    while read folder; do
+	echo "create directory: ${include_path}/${folder}"
+	mkdir -p ${include_path}/${folder};
+    done
+
+include_files=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-include-files)
+echo "${include_files}" | \
+    while read file; do
+	echo "install to ${include_path}: ${file}"
+	install ${colcon_install}/include/${file} ${include_path}/${file};
+	echo "rm ${include_path}/${file}" >> ${uninstall}
+    done
+
+bin_files=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-bin-files)
+echo "${bin_files}" | \
+    while read file; do
+	echo "install to ${bin_path}: ${file}"
+	install ${colcon_install}/bin/${file} ${bin_path}/${file};
+	echo "rm ${bin_path}/${file}" >> ${uninstall}
+    done
+
+lib_files=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-lib-files)
+echo "${lib_files}" | \
+    while read file; do
+	echo "install to ${lib_path}: ${file}"
+	install ${colcon_install}/lib/${file} ${lib_path}/${file};
+	echo "rm ${lib_path}/${file}" >> ${uninstall}
+    done
+
+python_folders=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-python-folders)
+echo "${python_folders}" | \
+    while read folder; do
+	echo "create directory: ${pythonsitepackagesdir}/${folder}"
+	mkdir -p ${pythonsitepackagesdir}/${folder};
+    done
+
+python_files=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} list-python-files)
+python_install_folder=$(${list_file_path} --install-path ${colcon_install} --config-path ${config_file_path} display-python-dist-folder)
+echo "${python_files}" | \
+    while read file; do
+	echo "install to ${pythonsitepackagesdir}: ${file}"
+	install ${python_install_folder}/${file} ${pythonsitepackagesdir}/${file};
+	echo "rm ${pythonsitepackagesdir}/${file}" >> ${uninstall}
+    done
+
+
+# installing the uninstall file
+install ${uninstall} ${bin_path}
+
+
